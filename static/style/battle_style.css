@@ -1,0 +1,17 @@
+body {
+    background-color: cornsilk;
+}
+
+.title {
+    font-family: 'Kurale';
+    text-align: center;
+}
+
+.first-red::first-letter {
+    color: crimson;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}

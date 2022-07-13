@@ -1,0 +1,27 @@
+<%- include('partials/battle_head'); -%>
+
+<h1 class="title first-red"><%= data.general.name %></h1>
+<h2 class="title"><%= data.general.date %></h2>
+
+
+<% const sides_number = +data.sides[0]; %>
+
+<table class="title center" width="60%" border="1">
+    <tr>
+    <% for (let i = 1; i <= sides_number; ++i) { %>
+        <th> <%= data.sides[i] %> </th>
+    <% } %>
+    </tr>
+    <tr>
+    <% for (let i = 1; i <= sides_number; ++i) { %>
+        <td> <%= data.belligerents.filter(x => x.side === i).map(x => x.name).join("/n") %> </td>
+    <% } %>
+    </tr>
+</table>
+
+
+<p>
+    <img src="data:image/png;base64, <%= data.images.map %>" alt="Map" />
+</p>
+
+<%- include('partials/battle_foot'); -%>

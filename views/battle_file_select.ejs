@@ -1,0 +1,39 @@
+<%- include('partials/battle_head'); -%>
+
+<h1><%= title %></h1>
+
+<form enctype="multipart/form-data" action="battle/upload" method="post">
+<div>
+    <label for="battle_file">File name</label>
+    <input type="file" id="battle_file" name="battle_file" accept=".battle" />
+</div>
+<div>
+    <!--  <button onclick="uploadFile()">Read</button> -->
+    <button>Submit</button>   
+</div>
+</form>
+
+<!-- File Upload Logic JavaScript -->
+<script>
+
+    async function uploadFile() {
+        let formData = new FormData();
+        formData.append("battle_file", fileupload.files[0]);
+        await fetch("/battle/upload", {
+            method: "POST",
+            body: formData
+        });
+    }
+
+    async function readFile() {
+        const reader = new FileReader();
+        reader.addEventListener("load", () => {
+            const file_data = JSON.parse(reader.result);
+            console.log(file_data);
+        });
+        reader.readAsText(fileupload.files[0]);
+    }
+
+</script>
+
+<%- include('partials/battle_foot'); -%>
