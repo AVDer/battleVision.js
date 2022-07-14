@@ -1,5 +1,11 @@
 <%- include('partials/battle_head'); -%>
 
+<script type="module">
+    import {BattleManager} from "/js/battle_manager.js";
+    let battle_manager = new BattleManager();
+    battle_manager.initBattle(<%- JSON.stringify(data) %>);
+</script> 
+
 <h1 class="title first-red"><%= data.general.name %></h1>
 <h2 class="title"><%= data.general.date %></h2>
 
