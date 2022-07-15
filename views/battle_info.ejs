@@ -2,9 +2,18 @@
 
 <script type="module">
     import {BattleManager} from "/js/battle_manager.js";
-    let battle_manager = new BattleManager();
-    battle_manager.initBattle(<%- JSON.stringify(data) %>);
+    window.battle_manager = new BattleManager();
+    window.battle_manager.initBattle(<%- JSON.stringify(data) %>);
 </script> 
+
+<script>
+    function drawUnits() {
+        let canvas = document.getElementById("battleCanvas");
+        let ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#FF0000";
+        window.battle_manager.drawFrame(ctx);
+    }
+</script>
 
 <h1 class="title first-red"><%= data.general.name %></h1>
 <h2 class="title"><%= data.general.date %></h2>
@@ -24,6 +33,11 @@
     <% } %>
     </tr>
 </table>
+
+<p>
+    <button onclick="drawUnits()">Draw</button>
+    <canvas id="battleCanvas" width="1000" height="1000"></canvas>
+</p>
 
 
 <p>

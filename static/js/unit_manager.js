@@ -15,6 +15,10 @@ class UnitManager {
                count : unit_info.count}));
         console.dir(this.units);
     }
+
+    drawUnits(context) {
+        this.units.forEach(unit => unit.draw(context));
+    }
 }
 
 export {UnitManager};
