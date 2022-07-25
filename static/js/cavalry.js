@@ -7,7 +7,18 @@ class Cavalry extends Unit {
     }
 
     draw(context) {
-
+        context.translate(this.x, this.y);
+        context.rotate(this.angle / 180 * Math.PI);
+        context.translate(-this.x, -this.y);
+        context.beginPath();
+        context.fillRect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height - 2);
+        const org_color = context.fillStyle;
+        context.fillStyle = "#FFFF00";
+        context.fillRect(this.x - this.width / 2, this.y, this.width, this.height - 2);
+        context.fillStyle = "#FFFFFF";
+        context.fillText("↑", this.x, this.y);
+        context.fillStyle = org_color;
+        context.setTransform(1, 0, 0, 1, 0, 0);
     }
 }
 

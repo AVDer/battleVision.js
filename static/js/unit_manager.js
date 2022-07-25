@@ -6,6 +6,7 @@ class UnitManager {
     initBattleUnits(units_info) {
         this.units = units_info.map(unit_info =>
             createUnit(unit_info.type, {
+               id : unit_info.id,
                x : unit_info.position_x,
                y : unit_info.position_y,
                angle : unit_info.angle,
@@ -13,11 +14,14 @@ class UnitManager {
                height : unit_info.size_y,
                belligerent : unit_info.belligerent,
                count : unit_info.count}));
-        console.dir(this.units);
     }
 
-    drawUnits(context) {
-        this.units.forEach(unit => unit.draw(context));
+    drawUnits(context, belligerent) {
+        if (belligerent) {
+            this.units
+                .filter(unit => unit.belligerent === belligerent)
+                .forEach(unit => unit.draw(context));    
+        }
     }
 }
 

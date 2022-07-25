@@ -1,4 +1,5 @@
 class Unit {
+    id = 0;
     count = 0;
     x = 0;
     y = 0;
@@ -8,6 +9,7 @@ class Unit {
     belligerent = 0;
 
     constructor(unit_info) {
+        this.id = unit_info.id;
         this.x = unit_info.x;
         this.y = unit_info.y;
         this.angle = unit_info.angle;
