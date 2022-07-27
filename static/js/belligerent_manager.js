@@ -17,6 +17,7 @@ class BelligerentManager {
     select(number, context) {
         console.log(this.belligerents[number].color);
         context.fillStyle = this.belligerents[number].color;
+        context.strokeStyle = this.belligerents[number].color;
     } 
 }
 
