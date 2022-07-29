@@ -3,7 +3,6 @@ class BelligerentManager {
 
     initBelligerents(belligerents_info) {
         this.belligerents = belligerents_info;
-        console.dir(this.belligerents);
     }
 
     count() {
@@ -15,7 +14,6 @@ class BelligerentManager {
     }
 
     select(number, context) {
-        console.log(this.belligerents[number].color);
         context.fillStyle = this.belligerents[number].color;
         context.strokeStyle = this.belligerents[number].color;
     } 
