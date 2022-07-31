@@ -7,10 +7,25 @@ class BattleManager {
     map_manager = new MapManager();
     belligerent_manager = new BelligerentManager();
     unit_manager = new UnitManager();
+    canvas_width = 1000;
+    canvas_height = 1000;
+
+    constructor(canvas_width, canvas_height) {
+        this.canvas_width = canvas_width;
+        this.canvas_height = canvas_height;
+    }
 
     initBattle(battle_info) {
-        this.map_manager.initMap(battle_info.map.width, battle_info.map.height, battle_info.images.map);
+        this.map_manager.initMap(this.canvas_width, this.canvas_height, battle_info.images.map);
         this.belligerent_manager.initBelligerents(battle_info.belligerents);
+        scale_factor = Math.min(this.canvas_width / battle_info.map.width, this.canvas_height / battle_info.map.height);
+        battle_info.units = battle_info.units.map(u => {
+            u.position_x *= scale_factor;
+            u.position_y *= scale_factor;
+            u.size_x *= scale_factor;
+            u.size_y *= scale_factor;
+            return u;
+        })
         this.unit_manager.initBattleUnits(battle_info.units);
     }
 

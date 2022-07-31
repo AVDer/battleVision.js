@@ -2,7 +2,7 @@
 
 <script type="module">
     import {BattleManager} from "/js/battle_manager.js";
-    window.battle_manager = new BattleManager();
+    window.battle_manager = new BattleManager(600, 600);
     window.battle_manager.initBattle(<%- JSON.stringify(data) %>);
 </script> 
 
@@ -37,7 +37,7 @@
     <button onclick="drawUnits()">Draw</button>
 </p>
 <p>
-    <canvas id="battleCanvas" width="1000" height="1000"></canvas>
+    <canvas id="battleCanvas" width="600" height="600"></canvas>
 </p>
 
 <%- include('partials/battle_foot'); -%>
