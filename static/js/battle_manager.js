@@ -11,6 +11,7 @@ class BattleManager {
     unit_manager = new UnitManager();
     canvas_width = 1000;
     canvas_height = 1000;
+    scale_factor = 1;
 
     constructor(canvas_width, canvas_height) {
         this.canvas_width = canvas_width;
@@ -21,14 +22,7 @@ class BattleManager {
         this.map_manager.initMap(this.canvas_width, this.canvas_height, battle_info.images.map);
         this.belligerent_manager.initBelligerents(battle_info.belligerents);
         this.maneuver_manager.initManeuvers(battle_info.maneuvers);
-        const scale_factor = Math.min(this.canvas_width / battle_info.map.width, this.canvas_height / battle_info.map.height);
-        battle_info.units = battle_info.units.map(u => {
-            u.position_x *= scale_factor;
-            u.position_y *= scale_factor;
-            u.size_x *= scale_factor;
-            u.size_y *= scale_factor;
-            return u;
-        })
+        this.scale_factor = Math.min(this.canvas_width / battle_info.map.width, this.canvas_height / battle_info.map.height);
         this.unit_manager.initBattleUnits(battle_info.units);
     }
 
@@ -37,7 +31,7 @@ class BattleManager {
         this.maneuver_manager.apply(800, this.unit_manager.units);
         for (let i = 0; i < this.belligerent_manager.count(); ++i) {
             this.belligerent_manager.select(i, context);
-            this.unit_manager.drawUnits(context, this.belligerent_manager.id(i));
+            this.unit_manager.drawUnits(context, this.scale_factor, this.belligerent_manager.id(i));
         }
     }
 }

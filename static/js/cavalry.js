@@ -6,14 +6,15 @@ class Cavalry extends Unit {
         super(unit_info);
     }
 
-    draw(context) {
+    draw(context, scale) {
+        this.scale(scale);
         this.preDraw(context);
 
         const strokeColor = context.strokeStyle;
         context.strokeStyle = "#FFFFFF";
-        context.lineWidth = this.height / 3;
-        context.moveTo(this.x - this.width / 2, this.y)
-        context.lineTo(this.x + this.width / 2, this.y)
+        context.lineWidth = this.scaled_height / 3;
+        context.moveTo(this.scaled_x - this.scaled_width / 2, this.scaled_y)
+        context.lineTo(this.scaled_x + this.scaled_width / 2, this.scaled_y)
         context.stroke();
         context.strokeStyle = strokeColor;
 

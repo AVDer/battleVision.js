@@ -6,7 +6,8 @@ class Infantry extends Unit {
         super(unit_info);
     }
 
-    draw(context) {
+    draw(context, scale) {
+        this.scale(scale);
         this.preDraw(context);
         this.postDraw(context);
     }

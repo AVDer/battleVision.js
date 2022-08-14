@@ -8,6 +8,11 @@ class Unit {
     angle = 0;
     belligerent = 0;
 
+    scaled_x = 0;
+    scaled_y = 0;
+    scaled_width = 0;
+    scaled_height = 0;
+
     constructor(unit_info) {
         this.id = unit_info.id;
         this.x = unit_info.x;
@@ -19,15 +24,22 @@ class Unit {
         this.count = unit_info.count;
     }
 
-    preDraw(context) {
-        context.translate(this.x, this.y);
+    scale(factor) {
+        this.scaled_x = this.x * factor;
+        this.scaled_y = this.y * factor;
+        this.scaled_width = this.width * factor;
+        this.scaled_height = this.height * factor;
+    }
+
+    preDraw(context, scale) {
+        context.translate(this.scaled_x, this.scaled_y);
         context.rotate(this.angle / 180 * Math.PI);
-        context.translate(-this.x, -this.y);
+        context.translate(-this.scaled_x, -this.scaled_y);
 
         context.beginPath();
-        context.lineWidth = this.height;
-        context.moveTo(this.x - this.width / 2, this.y)
-        context.lineTo(this.x + this.width / 2, this.y)
+        context.lineWidth = this.scaled_height;
+        context.moveTo(this.scaled_x - this.scaled_width / 2, this.scaled_y)
+        context.lineTo(this.scaled_x + this.scaled_width / 2, this.scaled_y)
         context.stroke();
     }
 
@@ -35,13 +47,13 @@ class Unit {
         const org_color = context.fillStyle;
         context.fillStyle = "#FFFFFF";
         context.beginPath();
-        context.arc(this.x, this.y, this.height / 2, 0, 2 * Math.PI);
+        context.arc(this.scaled_x, this.scaled_y, this.scaled_height / 2, 0, 2 * Math.PI);
         context.fill();
         context.fillStyle = "#000000";
         context.beginPath();
-        context.moveTo(this.x - this.height / 3, this.y);
-        context.lineTo(this.x, this.y - this.height / 3);
-        context.lineTo(this.x + this.height / 3, this.y);
+        context.moveTo(this.scaled_x - this.scaled_height / 3, this.scaled_y);
+        context.lineTo(this.scaled_x, this.scaled_y - this.scaled_height / 3);
+        context.lineTo(this.scaled_x + this.scaled_height / 3, this.scaled_y);
         context.fill();
         context.fillStyle = org_color;
 

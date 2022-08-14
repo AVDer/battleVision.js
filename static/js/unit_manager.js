@@ -16,11 +16,11 @@ class UnitManager {
                count : unit_info.count}));
     }
 
-    drawUnits(context, belligerent) {
+    drawUnits(context, scale, belligerent) {
         if (belligerent) {
             this.units
                 .filter(unit => unit.belligerent === belligerent)
-                .forEach(unit => unit.draw(context));    
+                .forEach(unit => unit.draw(context, scale));    
         }
     }
 }
