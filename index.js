@@ -16,9 +16,6 @@ const cfg = {
   }
 };
 
-let test_datr = new BvDate("-000490-09-10T00:00:00");
-console.log(test_datr.toString());
-
 var app = express();
 
 app.set('port', cfg.port);

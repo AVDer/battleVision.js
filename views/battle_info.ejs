@@ -17,7 +17,6 @@
 <h1 class="title first-red"><%= data.general.name %></h1>
 <h2 class="title"><%= data.general.date %></h2>
 
-
 <% const sides_number = +data.sides[0]; %>
 
 <table class="title center" width="60%" border="1">
@@ -33,11 +32,16 @@
     </tr>
 </table>
 
-<p>
+<div>
     <button onclick="drawUnits()">Draw</button>
-</p>
-<p>
+</div>
+
+<div>
+    <input type="range" min="0" class="time-range" max="<%= data.general.steps %>" value="0" id="timeRange">
+</div>
+
+<div>
     <canvas id="battleCanvas" width="600" height="600"></canvas>
-</p>
+</div>
 
 <%- include('partials/battle_foot'); -%>

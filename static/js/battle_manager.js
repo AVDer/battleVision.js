@@ -1,9 +1,11 @@
 import {BelligerentManager} from "./belligerent_manager.js"
+import { ManeuverManager } from "./maneuver_manager.js";
 import {MapManager} from "./map_manager.js"
 import {UnitManager} from "./unit_manager.js"
 
 class BattleManager {
 
+    maneuver_manager = new ManeuverManager();
     map_manager = new MapManager();
     belligerent_manager = new BelligerentManager();
     unit_manager = new UnitManager();
@@ -18,7 +20,8 @@ class BattleManager {
     initBattle(battle_info) {
         this.map_manager.initMap(this.canvas_width, this.canvas_height, battle_info.images.map);
         this.belligerent_manager.initBelligerents(battle_info.belligerents);
-        scale_factor = Math.min(this.canvas_width / battle_info.map.width, this.canvas_height / battle_info.map.height);
+        this.maneuver_manager.initManeuvers(battle_info.maneuvers);
+        const scale_factor = Math.min(this.canvas_width / battle_info.map.width, this.canvas_height / battle_info.map.height);
         battle_info.units = battle_info.units.map(u => {
             u.position_x *= scale_factor;
             u.position_y *= scale_factor;
@@ -31,6 +34,7 @@ class BattleManager {
 
     drawFrame(context) {
         this.map_manager.drawMap(context);
+        this.maneuver_manager.apply(800, this.unit_manager.units);
         for (let i = 0; i < this.belligerent_manager.count(); ++i) {
             this.belligerent_manager.select(i, context);
             this.unit_manager.drawUnits(context, this.belligerent_manager.id(i));
