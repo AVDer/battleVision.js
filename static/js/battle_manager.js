@@ -26,9 +26,9 @@ class BattleManager {
         this.unit_manager.initBattleUnits(battle_info.units);
     }
 
-    drawFrame(context) {
+    drawFrame(context, timestamp) {
         this.map_manager.drawMap(context);
-        this.maneuver_manager.apply(800, this.unit_manager.units);
+        this.maneuver_manager.apply(timestamp, this.unit_manager.units);
         for (let i = 0; i < this.belligerent_manager.count(); ++i) {
             this.belligerent_manager.select(i, context);
             this.unit_manager.drawUnits(context, this.scale_factor, this.belligerent_manager.id(i));

@@ -7,10 +7,10 @@
 </script> 
 
 <script>
-    function drawUnits() {
+    function drawUnits(timestamp = 0) {
         let canvas = document.getElementById("battleCanvas");
         let ctx = canvas.getContext("2d");
-        window.battle_manager.drawFrame(ctx);
+        window.battle_manager.drawFrame(ctx, timestamp);
     }
 </script>
 
@@ -37,7 +37,7 @@
 </div>
 
 <div>
-    <input type="range" min="0" class="time-range" max="<%= data.general.steps %>" value="0" id="timeRange">
+    <input type="range" min="0" class="time-range" max="<%= data.general.steps %>" value="0" id="timeRange" oninput="drawUnits(this.value)">
 </div>
 
 <div>
