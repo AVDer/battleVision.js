@@ -18,6 +18,10 @@ class BattleManager {
         this.canvas_height = canvas_height;
     }
 
+    /**
+     * Initialize the current battle structure
+     * @param {BattleInfo} battle_info JSON struct containing the complete battle information
+     */
     initBattle(battle_info) {
         this.map_manager.initMap(this.canvas_width, this.canvas_height, battle_info.images.map);
         this.belligerent_manager.initBelligerents(battle_info.belligerents);
@@ -26,6 +30,11 @@ class BattleManager {
         this.unit_manager.initBattleUnits(battle_info.units);
     }
 
+    /**
+     * Function draws a single frame. Having a context, first map is drawn, then the units.
+     * @param {CanvasRenderingContext2D} context Drawing context that is forwarded to other drewn components: map, units
+     * @param {Number} timestamp Time stamp for maneuvers
+     */
     drawFrame(context, timestamp) {
         this.map_manager.drawMap(context);
         this.maneuver_manager.apply(timestamp, this.unit_manager.units);

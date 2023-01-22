@@ -24,7 +24,7 @@ app.set('port', cfg.port);
 app.set('/views', cfg.dir.views);
 app.set('view engine', 'ejs');
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(express.static(cfg.dir.static));
 
 battleRouter.setConfig(cfg);

@@ -1,17 +1,20 @@
 <%- include('partials/battle_head'); -%>
 
-<h1><%= title %></h1>
+<h1 class="title"><%= title %></h1>
 
-<form enctype="multipart/form-data" action="battle/upload" method="post">
-<div>
-    <label for="battle_file">File name</label>
-    <input type="file" id="battle_file" name="battle_file" accept=".battle" />
+<div class="row">
+    <div class="col-6 m-auto">
+        <form enctype="multipart/form-data" action="battle/upload" method="post">
+            <div class="mb-3">
+                <input type="file" class="form-control form-control-lg" id="battle_file" name="battle_file" accept=".battle" />
+            </div>
+            <div class="mb-3">
+                <!--  <button onclick="uploadFile()">Read</button> -->
+                <button class="btn btn-primary">Submit</button>   
+            </div>
+        </form>
+    </div>
 </div>
-<div>
-    <!--  <button onclick="uploadFile()">Read</button> -->
-    <button>Submit</button>   
-</div>
-</form>
 
 <!-- File Upload Logic JavaScript -->
 <script>
