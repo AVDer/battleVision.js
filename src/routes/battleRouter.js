@@ -1,6 +1,7 @@
 import express from "express";
 import formidable from "formidable";
 import fs from "fs";
+import path from "path";
 
 import {BvDate} from "../bv_date.js";
 
@@ -17,7 +18,24 @@ router.getConfig = function getConfig() {
 router.setConfig({})
 
 router.get('/', function(req, res, next) {
-  res.render('battle_file_select', { title: 'Select File'});
+  let battle_files = [];
+  fs.readdir(router.getConfig().dir.upload, function(err, files) {
+    files.forEach(function(file) {
+      const battle_data = JSON.parse(fs.readFileSync(router.getConfig().dir.upload + file));
+      battle_files.push({
+        name: battle_data.general.name,
+        date: BvDate.isoToString(battle_data.general.date),
+        filename: path.parse(file).name
+      });
+    })
+    console.log(battle_files);
+    res.render('battle_file_select', { title: 'Select Battle', files: battle_files});
+  })
+  
+});
+
+router.get('/add', function(req, res, next) {
+  res.render('add_battle_file', { title: 'Upload File'});
 });
 
 router.get('/info/:name', function(req, res, next) {
