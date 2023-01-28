@@ -49,6 +49,10 @@ body::-webkit-scrollbar {
     margin-left: 10%;
 }
 
+.player-buttons {
+    text-align: center;
+}
+
 .battle-map-div {
     text-align: center;
 }

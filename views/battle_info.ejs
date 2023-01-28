@@ -38,17 +38,63 @@
 
 <div class="container mx-auto my-4 w-75">
     <div class="row">
-        <div class="col-1">
-            <button onclick="drawUnits()">Draw</button>
-        </div>
         <div class="col">
-            <input type="range" min="0" class="time-range" max="<%= data.general.steps %>" value="0" id="timeRange" oninput="drawUnits(this.value)">
+            <input type="range" min="0" class="form-range time-range" max="<%= data.general.steps %>" value="0" id="timeRange">
         </div>
     </div>
+</div>
+
+<div class="container mx-auto my-4 player-buttons">
+    <button id="play-button" type="button" class="btn"><img src="/images/play-button.png" width=50px alt="Play"></button>
+    <button id="pause-button" type="button" class="btn"><img src="/images/pause-button.png" width=50px alt="Pause"></button>
+    <button id="stop-button" type="button" class="btn"><img src="/images/stop-button.png" width=50px alt="Stop"></button>
 </div>
 
 <div class="container mx-auto battle-map-div">
     <canvas id="battleCanvas" width="600" height="600"></canvas>
 </div>
+
+<script>
+    let playerIntervalId;
+    let playerTime = 0;
+
+    $(function() {
+        drawUnits();
+    });
+
+    $("#timeRange").on("input", function() {
+        playerTime = this.value;
+        drawUnits(this.value);
+        if (playerIntervalId) {
+            clearInterval(playerIntervalId);
+        }
+    });
+
+    function newPlayerTime(playerTime) {
+        $("#timeRange").val(playerTime);
+        drawUnits(playerTime);
+    }
+
+    $("#play-button").on("click", function() {
+        playerIntervalId = setInterval(function() {
+            newPlayerTime(playerTime++);
+        }, 20);
+    });
+
+    $("#pause-button").on("click", function() {
+        if (playerIntervalId) {
+            clearInterval(playerIntervalId);
+        }
+    });
+
+    $("#stop-button").on("click", function() {
+        if (playerIntervalId) {
+            clearInterval(playerIntervalId);
+            playerTime = 0;
+            newPlayerTime(0);
+        }
+    });
+
+</script>
 
 <%- include('partials/battle_foot'); -%>
