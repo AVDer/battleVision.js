@@ -6,14 +6,20 @@ import path from "path";
 import {BvDate} from "../bv_date.js";
 
 let router = express.Router();
+let tech_logos = [];
 
 router.setConfig = function setConfig(cfg) {
   this.cfg = cfg;
-}
+  if ("dir" in cfg) {
+    fs.readdir(cfg.dir.static + "images/tech", function(err, files) {
+      tech_logos = files;
+    });
+  }
+};
 
 router.getConfig = function getConfig() {
   return this.cfg;
-}
+};
 
 router.setConfig({})
 
@@ -29,19 +35,19 @@ router.get('/', function(req, res, next) {
       });
     })
     console.log(battle_files);
-    res.render('battle_file_select', { title: 'Select Battle', files: battle_files});
+    res.render('battle_file_select', { title: 'Select Battle', files: battle_files, tech: tech_logos});
   })
   
 });
 
 router.get('/add', function(req, res, next) {
-  res.render('add_battle_file', { title: 'Upload File'});
+  res.render('add_battle_file', { title: 'Upload File', tech: tech_logos});
 });
 
 router.get('/info/:name', function(req, res, next) {
   const battle_data = JSON.parse(fs.readFileSync(router.getConfig().dir.upload + req.params.name + ".battle"));
   battle_data.general.date = BvDate.isoToString(battle_data.general.date);
-  res.render('battle_info', { title: 'File Info', data: battle_data});
+  res.render('battle_info', { title: 'File Info', data: battle_data, tech: tech_logos});
 });
 
 router.post('/upload', function(req, res, next) {

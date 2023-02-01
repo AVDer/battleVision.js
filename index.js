@@ -9,8 +9,8 @@ const __dirname = dirname(fileURLToPath( import.meta.url )) + sep;
 const cfg = {
   port: process.env.PORT || 3000,
   dir : {
-    root : __dirname,
-    static : __dirname + '/static' + sep,
+    root: __dirname,
+    static: __dirname + '/static' + sep,
     views: __dirname + '/views' + sep,
     upload: __dirname + '/upload' + sep
   }
